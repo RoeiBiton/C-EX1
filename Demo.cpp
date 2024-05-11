@@ -8,7 +8,7 @@
 #include <stdexcept>
 #include <vector>
 
-using ariel::Algorithms;
+using namespace ariel;
 using namespace std;
 
 int main()
@@ -25,7 +25,7 @@ int main()
     cout << Algorithms::isConnected(g) << endl;        // Should print: "1" (true).
     cout << Algorithms::shortestPath(g, 0, 2) << endl; // Should print: 0->1->2.
     cout << Algorithms::isContainsCycle(g) << endl;    // Should print: "The cycle is: 0->1->0".
-    cout << Algorithms::isBipartite(g) << endl;        // Should print: "The graph is bipartite: A={2, 0}, B={1}."
+    cout << Algorithms::isBipartite(g) << endl;        // Should print: "The graph is bipartite: A={2, 0}, B={1}"
     cout << endl;
 
     // 5x5 matrix that represents a non-connected graph with a cycle.

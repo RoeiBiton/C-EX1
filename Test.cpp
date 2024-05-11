@@ -57,6 +57,7 @@ TEST_CASE("Test isContainsCycle")
         {0, 1, 0}};
     g.loadGraph(graph5);
     CHECK(ariel::Algorithms::isContainsCycle(g) == "The cycle is: 0->1->0");
+    CHECK(ariel::Algorithms::negativeCycle(g) == false);
 
     vector<vector<int>> graph6 = {
         {0, 1, 1, 0, 0},
@@ -66,6 +67,7 @@ TEST_CASE("Test isContainsCycle")
         {0, 0, 0, 0, 0}};
     g.loadGraph(graph6);
     CHECK(ariel::Algorithms::isContainsCycle(g) == "The cycle is: 0->1->0");
+    CHECK(ariel::Algorithms::negativeCycle(g) == false);
 }
 TEST_CASE("Test isBipartite")
 {
@@ -75,7 +77,7 @@ TEST_CASE("Test isBipartite")
         {1, 0, 1},
         {0, 1, 0}};
     g.loadGraph(graph7);
-    CHECK(ariel::Algorithms::isBipartite(g) == "The graph is bipartite: A={2, 0}, B={1}");
+    CHECK(ariel::Algorithms::isBipartite(g) == "The graph is bipartite: A={2, 0}, B={1} ");
 
     vector<vector<int>> graph8 = {
         {0, 1, 1, 0, 0},
@@ -85,15 +87,19 @@ TEST_CASE("Test isBipartite")
         {0, 0, 0, 0, 0}};
     g.loadGraph(graph8);
     CHECK(ariel::Algorithms::isBipartite(g) == "0");
+    CHECK(ariel::Algorithms::isConnected(g) == false);
 
     vector<vector<int>> graph9 = {
-        {0, 1, 2, 0, 0},
+        {0, 1, 0, 0, 0},
         {1, 0, 3, 0, 0},
-        {2, 3, 0, 4, 0},
+        {0, 3, 0, 4, 0},
         {0, 0, 4, 0, 5},
         {0, 0, 0, 5, 0}};
     g.loadGraph(graph9);
-    CHECK(ariel::Algorithms::isBipartite(g) == "The graph is bipartite: A={4, 2, 0}, B={3, 1}");
+    CHECK(ariel::Algorithms::isBipartite(g) == "The graph is bipartite: A={4, 2, 0}, B={3, 1} ");
+    CHECK(ariel::Algorithms::shortestPath(g, 4, 2) == "4->3->2");
+    CHECK(ariel::Algorithms::isConnected(g) == true);
+
 }
 TEST_CASE("Test invalid graph")
 {
@@ -131,6 +137,7 @@ TEST_CASE("Example of shortest path that going through negative edges")
             {0, 0, 0, 5,  0}};
     g.loadGraph(graph12);
     CHECK(ariel::Algorithms::shortestPath(g, 0, 4) == "0->1->3->4");
+    CHECK(ariel::Algorithms::isConnected(g) == true);
 }
 
 TEST_CASE("Example of negative cycle")
@@ -144,5 +151,6 @@ TEST_CASE("Example of negative cycle")
             {0, 0, 0, 5,  0}};
     g.loadGraph(graph13); // Load the graph to the object.
     CHECK(ariel::Algorithms::negativeCycle(g) == true);
+    CHECK(ariel::Algorithms::isContainsCycle(g) == "The cycle is: 1->3->1");
 }
 

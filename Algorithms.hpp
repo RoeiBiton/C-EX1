@@ -3,6 +3,7 @@
 
 #include "Graph.hpp"
 #include <vector>
+#include <string>
 
 
 namespace ariel {

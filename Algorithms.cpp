@@ -8,15 +8,18 @@
 #include <iostream>
 #include <sstream>
 #include <unordered_set>
+#include <algorithm>
+#include <climits>
+
 
 namespace ariel {
 
     // Function to check if the graph is connected.
     // We use a breadth-first search (BFS) traversal starting from vertex 0.
     bool Algorithms::isConnected(const Graph& graph) {
-        // Initialize a vector to mark visited vertices during BFS traversal
+        // Define a vector to mark visited vertices during BFS traversal
         std::vector<bool> visited(graph.adjacencyMatrix.size(), false);
-        // Initialize a queue for BFS traversal
+        // Define a queue for BFS traversal
         std::queue<int> q;
 
         // Start BFS traversal from vertex 0
@@ -28,7 +31,7 @@ namespace ariel {
             int currentVertex = q.front();
             q.pop();
 
-            // Visit neighbors of the current vertex
+            // Visit neighbors of the current vertice
             for (size_t i = 0; i < graph.adjacencyMatrix.size(); ++i) {
                 if (graph.adjacencyMatrix[currentVertex][i] && !visited[i]) {
                     q.push(i);
@@ -40,7 +43,7 @@ namespace ariel {
         // Check if all vertices are visited
         for (bool v : visited) {
             if (!v) {
-                return false; // If any vertex is not visited, the graph is not connected
+                return false; // If any vertice is not visited, the graph is not connected
             }
         }
 
@@ -48,13 +51,13 @@ namespace ariel {
     }
 
     // Function to find the shortest path between two vertices using the Bellman-Ford algorithm.
-    // This algorithm can handle graphs with negative edge weights and detects negative cycles.
+    // This algorithm can handle graphs with negative edge weights but not negative cycles.
     std::string Algorithms::shortestPath(const Graph& graph, int start, int end) {
         int numVertices = graph.adjacencyMatrix.size();
 
-        // Initialize distances to all vertices as infinity
+        // Define distances to all vertices as max
         std::vector<int> distance(numVertices, INT_MAX);
-        // Initialize parent array to keep track of the shortest path
+        // Deifne parent array to keep track of the shortest path
         std::vector<int> parent(numVertices, -1);
 
         // Distance to the start vertex is 0
@@ -189,7 +192,7 @@ namespace ariel {
     }
 
     // Function to check for negative cycles using the Bellman-Ford algorithm.
-    // This algorithm iteratively relaxes all edges to find the shortest paths and detects negative cycles.
+    // This algorithm relaxes all edges to find the shortest paths and detects negative cycles.
     bool Algorithms::negativeCycle(const Graph& graph) {
         std::vector<int> distance(graph.adjacencyMatrix.size(), INT_MAX);
         distance[0] = 0; // Assume the source vertex is 0
